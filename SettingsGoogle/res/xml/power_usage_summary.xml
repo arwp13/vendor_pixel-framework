@@ -97,6 +97,13 @@
         android:summary="@string/high_power_apps_summary">
         <intent android:action="android.settings.IGNORE_BATTERY_OPTIMIZATION_SETTINGS" />
     </Preference>
+    <Preference
+        android:key="battery_info"
+        android:order="6"
+        android:title="@string/battery_info"
+        android:fragment="com.android.settings.deviceinfo.batteryinfo.BatteryInfoFragment"
+        settings:keywords="@string/keywords_battery_info"/>
+    <!--
     <com.android.settings.fuelgauge.batteryusage.PowerGaugePreference
         android:key="battery_health"
         android:order="6"
@@ -113,7 +120,7 @@
         android:title="@string/battery_cycle_count"
         android:summary="@string/summary_placeholder"
         settings:controller="com.android.settings.deviceinfo.batteryinfo.BatteryCycleCountPreferenceController"
-        settings:enableCopying="true"/>
+        settings:enableCopying="true"/>-->
     <com.android.settingslib.widget.FooterPreference
         android:key="power_usage_footer"
         android:order="100"
