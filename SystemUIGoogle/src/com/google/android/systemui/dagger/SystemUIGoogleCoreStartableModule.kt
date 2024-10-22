@@ -44,7 +44,7 @@ import com.android.systemui.reardisplay.RearDisplayDialogController
 import com.android.systemui.recents.Recents
 import com.android.systemui.settings.dagger.MultiUserUtilsModule
 import com.android.systemui.shortcut.ShortcutKeyDispatcher
-import com.android.systemui.smartpixels.SmartPixelsReceiver
+//import com.android.systemui.smartpixels.SmartPixelsReceiver
 import com.android.systemui.statusbar.notification.InstantAppNotifier
 import com.android.systemui.statusbar.notification.fsi.FsiChromeRepo
 import com.android.systemui.statusbar.notification.fsi.FsiChromeViewBinder
@@ -315,9 +315,9 @@ abstract class SystemUIGoogleCoreStartableModule {
     @ClassKey(KeyguardSmartspaceStartable::class)
     abstract fun bindKeyguardSmartspaceStartable(sysui: KeyguardSmartspaceStartable): CoreStartable
 
-    /** Inject into SmartPixelsReceiver.  */
-    @Binds
-    @IntoMap
-    @ClassKey(SmartPixelsReceiver::class)
-    abstract fun bindSmartPixelsReceiver(sysui: SmartPixelsReceiver): CoreStartable
+//    /** Inject into SmartPixelsReceiver.  */
+//    @Binds
+//    @IntoMap
+//    @ClassKey(SmartPixelsReceiver::class)
+//    abstract fun bindSmartPixelsReceiver(sysui: SmartPixelsReceiver): CoreStartable
 }
