@@ -20,7 +20,6 @@ import static com.android.systemui.Dependency.TIME_TICK_HANDLER_NAME;
 
 import android.app.WallpaperManager;
 import android.content.Context;
-import android.hardware.fingerprint.FingerprintManager;
 import android.hardware.devicestate.DeviceStateManager;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -32,6 +31,7 @@ import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import android.hardware.fingerprint.FingerprintManager;
 import com.android.internal.jank.InteractionJankMonitor;
 import com.android.internal.logging.MetricsLogger;
 import com.android.keyguard.KeyguardUpdateMonitor;
@@ -57,9 +57,8 @@ import com.android.systemui.keyguard.KeyguardUnlockAnimationController;
 import com.android.systemui.keyguard.KeyguardViewMediator;
 import com.android.systemui.keyguard.ScreenLifecycle;
 import com.android.systemui.keyguard.WakefulnessLifecycle;
-import com.android.systemui.keyguard.ui.viewmodel.LightRevealScrimViewModel;
 import com.android.systemui.keyguard.domain.interactor.AlternateBouncerInteractor;
-import com.android.systemui.model.SysUiState;
+import com.android.systemui.keyguard.ui.viewmodel.LightRevealScrimViewModel;
 import com.android.systemui.navigationbar.NavigationBarController;
 import com.android.systemui.plugins.FalsingManager;
 import com.android.systemui.plugins.PluginDependencyProvider;
@@ -111,14 +110,11 @@ import com.android.systemui.statusbar.policy.BurnInProtectionController;
 import com.android.systemui.statusbar.policy.ConfigurationController;
 import com.android.systemui.statusbar.policy.DeviceProvisionedController;
 import com.android.systemui.statusbar.policy.ExtensionController;
-import com.android.systemui.statusbar.policy.FlashlightController;
 import com.android.systemui.statusbar.policy.KeyguardStateController;
-import com.android.systemui.statusbar.policy.TaskHelper;
 import com.android.systemui.statusbar.policy.UserInfoControllerImpl;
 import com.android.systemui.statusbar.policy.UserSwitcherController;
 import com.android.systemui.statusbar.window.StatusBarWindowController;
 import com.android.systemui.statusbar.window.StatusBarWindowStateController;
-import com.android.systemui.tuner.TunerService;
 import com.android.systemui.util.WallpaperController;
 import com.android.systemui.util.concurrency.DelayableExecutor;
 import com.android.systemui.util.concurrency.MessageRouter;
@@ -148,9 +144,9 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
     private final BatteryController.BatteryStateChangeCallback mBatteryStateChangeCallback;
     private final KeyguardIndicationControllerGoogle mKeyguardIndicationController;
     private final WallpaperNotifier mWallpaperNotifier;
-    private final Optional<ReverseChargingViewController> mReverseChargingViewControllerOptional;
     private final SysuiStatusBarStateController mStatusBarStateController;
     private final SmartSpaceController mSmartSpaceController;
+    private final Optional<ReverseChargingViewController> mReverseChargingViewControllerOptional;
     private final NotificationLockscreenUserManagerGoogle mNotificationLockscreenUserManagerGoogle;
 
     private long mAnimStartTime;
@@ -202,7 +198,6 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
             NavigationBarController navigationBarController,
             AccessibilityFloatingMenuController accessibilityFloatingMenuController,
             Lazy<AssistManager> assistManagerLazy,
-            FlashlightController flashlightController,
             ConfigurationController configurationController,
             NotificationShadeWindowController notificationShadeWindowController,
             DozeParameters dozeParameters,
@@ -250,17 +245,14 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
             WiredChargingRippleController wiredChargingRippleController,
             IDreamManager dreamManager,
             Lazy<CameraLauncher> cameraLauncherLazy,
-            AlternateBouncerInteractor alternateBouncerInteractor,
-            UserTracker userTracker,
-            Provider<FingerprintManager> fingerprintManagerProvider,
             Lazy<LightRevealScrimViewModel> lightRevealScrimViewModelLazy,
             WallpaperNotifier wallpaperNotifier,
             SmartSpaceController smartSpaceController,
             Optional<ReverseChargingViewController> reverseChargingViewControllerOptional,
             KeyguardIndicationControllerGoogle keyguardIndicationControllerGoogle,
-            SysUiState sysUiState,
-            TunerService tunerService,
-            TaskHelper taskHelper,
+            AlternateBouncerInteractor alternateBouncerInteractor,
+            UserTracker userTracker,
+            Provider<FingerprintManager> fingerprintManagerProvider,
             BurnInProtectionController burnInProtectionController) {
         super(context, notificationsController, fragmentService, lightBarController,
                 autoHideController, statusBarWindowController, statusBarWindowStateController,
@@ -275,7 +267,7 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
                 wakefulnessLifecycle, statusBarStateController,
                 bubblesOptional, deviceProvisionedController,
                 navigationBarController, accessibilityFloatingMenuController, assistManagerLazy,
-                flashlightController, configurationController, notificationShadeWindowController, dozeParameters,
+                configurationController, notificationShadeWindowController, dozeParameters,
                 scrimController, lockscreenWallpaperLazy,
                 biometricUnlockControllerLazy, dozeServiceHost, powerManager, screenPinningRequest,
                 dozeScrimController, volumeComponent, commandQueue, centralSurfacesComponentFactory,
@@ -290,9 +282,9 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
                 featureFlags, keyguardUnlockAnimationController, mainHandler, delayableExecutor,
                 messageRouter, wallpaperManager, startingSurfaceOptional, activityLaunchAnimator,
                 jankMonitor, deviceStateManager, wiredChargingRippleController,
-                dreamManager, cameraLauncherLazy, lightRevealScrimViewModelLazy, alternateBouncerInteractor,
-                userTracker, fingerprintManagerProvider,
-                sysUiState, tunerService, taskHelper, burnInProtectionController);
+                dreamManager, cameraLauncherLazy, lightRevealScrimViewModelLazy,
+                alternateBouncerInteractor, userTracker, fingerprintManagerProvider,
+		burnInProtectionController);
         mContext = context;
         mBatteryStateChangeCallback = new BatteryController.BatteryStateChangeCallback() {
             @Override
